@@ -168,6 +168,18 @@ namespace AppWPF.ModelView
                 this.IsReadOnlyBudget = false;
                 this.IsReadOnlyAdmin = false;
             }
+            if (parameter.Equals("Save"))
+            {
+                Department nuevo = new Department();
+                nuevo.Name = this.Name;
+                nuevo.Budget = Convert.ToDecimal(this.Budget);
+                nuevo.Administrator = Convert.ToInt16(this.Admin);
+                nuevo.StartDate = DateTime.Now;
+                db.Departments.Add(nuevo);
+                db.SaveChanges();
+                this.Departments.Add(nuevo);
+                MessageBox.Show("Registro Almacenado");
+            }
         }
     }
 }

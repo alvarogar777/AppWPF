@@ -30,7 +30,7 @@
             <Button Content="Add" Command="{Binding Instancia}" CommandParameter="Add"></Button>
             <Button Content="Delete"></Button>
             <Button Content="Update"></Button>
-            <Button Content="Save"></Button>
+            <Button Content="Save" Command="{Binding Instancia}" CommandParameter="Save"></Button>
             <Button Content="Cancel"></Button>
         </StackPanel>
 
