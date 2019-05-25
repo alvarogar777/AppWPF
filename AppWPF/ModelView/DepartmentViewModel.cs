@@ -6,10 +6,12 @@ using System.Threading.Tasks;
 using System.ComponentModel;
 using System.Collections.ObjectModel;
 using AppWPF.Model;
+using System.Windows.Input;
+using System.Windows;
 
 namespace AppWPF.ModelView
 {
-    public class DepartmentViewModel : INotifyPropertyChanged
+    public class DepartmentViewModel : INotifyPropertyChanged,ICommand 
     {
 
         //Enlaze a la base de datos
@@ -17,6 +19,16 @@ namespace AppWPF.ModelView
         private Boolean _IsReadOnlyName = true;
         private Boolean _IsReadOnlyBudget = true;
         private Boolean _IsReadOnlyAdmin = true;
+        private DepartmentViewModel _Instancia;
+        private string _Name;
+        private string _Budget;
+        private string _Admin;
+
+        public DepartmentViewModel()
+        {
+            this.Titulo = "Lista de Departamentos";
+            this.Instancia = this;
+        }
 
         private ObservableCollection<Department> _Department;
 
@@ -29,6 +41,7 @@ namespace AppWPF.ModelView
             set
             {
                 this._IsReadOnlyName = value;
+                ChangeNotify("IsReadOnlyName");
             }
         }
 
@@ -41,6 +54,7 @@ namespace AppWPF.ModelView
             set
             {
                 this._IsReadOnlyBudget = value;
+                ChangeNotify("IsReadOnlyBudget");
             }
         }
 
@@ -53,6 +67,19 @@ namespace AppWPF.ModelView
             set
             {
                 this._IsReadOnlyAdmin = value;
+                ChangeNotify("IsReadOnlyAdmin");
+            }
+        }
+
+        public DepartmentViewModel Instancia
+        {
+            get
+            {
+                return this._Instancia;
+            }
+            set
+            {
+                this._Instancia = value;
             }
         }
 
@@ -74,12 +101,73 @@ namespace AppWPF.ModelView
 
         }
 
-
-        public DepartmentViewModel()
+        public string Name
         {
-            this.Titulo = "Departmanetos";
+            get
+            {
+                return _Name;
+            }
+            set
+            {
+                this._Name = value;
+                ChangeNotify("Name");
+            }
         }
+
+        public string Budget
+        {
+            get
+            {
+                return _Budget;
+            }
+            set
+            {
+                this._Budget = value;
+                ChangeNotify("Budget");
+            }
+        }
+
+        public string Admin
+        {
+            get
+            {
+                return _Admin;
+            }
+            set
+            {
+                this._Admin = value;
+                ChangeNotify("Admin");
+            }
+        }
+
+
+
         public string Titulo {get; set;}
         public event PropertyChangedEventHandler PropertyChanged;
+        public void ChangeNotify(string propertie)
+        {
+            if(PropertyChanged != null)
+            {
+                PropertyChanged(this, new PropertyChangedEventArgs(propertie));
+            }
+        }
+
+        public event EventHandler CanExecuteChanged;
+
+        public bool CanExecute(object parameter)
+        {
+            return true;
+        }
+
+        public void Execute(object parameter)
+        {
+            if (parameter.Equals("Add"))
+            {
+                MessageBox.Show("Agregar Departamento");
+                this.IsReadOnlyName = false;
+                this.IsReadOnlyBudget = false;
+                this.IsReadOnlyAdmin = false;
+            }
+        }
     }
 }

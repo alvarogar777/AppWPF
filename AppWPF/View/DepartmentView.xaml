@@ -20,14 +20,14 @@
             <ColumnDefinition></ColumnDefinition>
         </Grid.ColumnDefinitions>
         <Label Content="Name" Grid.Row="0" Grid.Column="0"/>
-        <TextBox Grid.Row="0" Grid.Column="1" IsReadOnly="{Binding IsReadOnlyName}"></TextBox>
+        <TextBox Grid.Row="0" Grid.Column="1" IsReadOnly="{Binding IsReadOnlyName}" Text="{Binding Name}"></TextBox>
         <Label Content="Budget" Grid.Row="1" Grid.Column="0"/>
-        <TextBox Grid.Row="1" Grid.Column="1" IsReadOnly="{Binding IsReadOnlyBudget}"></TextBox>
+        <TextBox Grid.Row="1" Grid.Column="1" IsReadOnly="{Binding IsReadOnlyBudget}" Text="{Binding Budget}"></TextBox>
         <Label Content="Admin" Grid.Row="2" Grid.Column="0"/>
-        <TextBox Grid.Row="2" Grid.Column="1" IsReadOnly="{Binding IsReadOnlyAdmin}"></TextBox>
+        <TextBox Grid.Row="2" Grid.Column="1" IsReadOnly="{Binding IsReadOnlyAdmin}" Text="{Binding Admin}"></TextBox>
         <DataGrid ItemsSource="{Binding Departments}" Grid.Row="3" Grid.ColumnSpan="2"  />
-        <StackPanel Grid.Row="4" Grid.ColumnSpan="2">
-            <Button Content="Add"></Button>
+        <StackPanel Grid.Row="4" Grid.ColumnSpan="2" Orientation="Horizontal">
+            <Button Content="Add" Command="{Binding Instancia}" CommandParameter="Add"></Button>
             <Button Content="Delete"></Button>
             <Button Content="Update"></Button>
             <Button Content="Save"></Button>
